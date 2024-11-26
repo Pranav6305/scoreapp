@@ -239,6 +239,34 @@ function closePopupwk() {
   overlaywk.style.display = "none";
 }
 
+function closePopupwidecancel() {
+  var popup = document.getElementById("popup");
+  var overlay = document.getElementById("overlay");
+  popup.style.display = "none";
+  overlay.style.display = "none";
+}
+
+function closePopupnoballcancel() {
+  var popupn = document.getElementById("popupn");
+  var overlayn = document.getElementById("overlayn");
+  popupn.style.display = "none";
+  overlayn.style.display = "none";
+}
+
+function closelegbyescancel() {
+  var popuplb = document.getElementById("popuplb");
+  var overlaylb = document.getElementById("overlaylb");
+  popuplb.style.display = "none";
+  overlaylb.style.display = "none";
+}
+
+function closebyescancel() {
+  var popupb = document.getElementById("popupb");
+  var overlayb = document.getElementById("overlayb");
+  popupb.style.display = "none";
+  overlayb.style.display = "none";
+}
+
 function closePopup() {
   wide = 0;
   wide = parseInt(document.getElementById("val").value);
@@ -672,4 +700,6 @@ function undo() {
       freeHitFlag = 0;
     }
   }
+  //leg byes
+  
 }

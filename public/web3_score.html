@@ -122,7 +122,7 @@
           </button>
           <button
             type="button"
-            onclick="wicket(-1)"
+            onclick="openPopupwk()"
             class="button"
             style="background-color: lightgray"
           >
@@ -203,6 +203,14 @@
           </form>
           <br />
           <button onclick="closePopup()">proceed</button>
+          <button
+            type="buttonwk"
+            style="background-color: gray"
+            onclick="closePopupwidecancel()"
+            class="buttonwk"
+          >
+            cancel
+          </button>
         </div>
         <div id="overlay" class="overlay"></div>
 
@@ -234,6 +242,14 @@
           </form>
           <br />
           <button onclick="noballPopup()">proceed</button>
+          <button
+            type="buttonwk"
+            style="background-color: gray"
+            onclick="closePopupnoballcancel()"
+            class="buttonwk"
+          >
+            cancel
+          </button>
         </div>
         <div id="overlayn" class="overlayn"></div>
 
@@ -260,6 +276,14 @@
           </form>
           <br />
           <button onclick="byesPopup()">proceed</button>
+          <button
+            type="buttonwk"
+            style="background-color: gray"
+            onclick="closebyescancel()"
+            class="buttonwk"
+          >
+            cancel
+          </button>
         </div>
         <div id="overlayb" class="overlayb"></div>
 
@@ -286,10 +310,22 @@
           </form>
           <br />
           <button onclick="legbyesPopup()">proceed</button>
+          <button
+            type="buttonwk"
+            style="background-color: gray"
+            onclick="closelegbyescancel()"
+            class="buttonwk"
+          >
+            cancel
+          </button>
         </div>
         <div id="overlaylb" class="overlaylb"></div>
 
-        <div id="popupwk" class="popupwk">
+        <div
+          id="popupwk"
+          class="popupwk"
+          style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)"
+        >
           <h1>Wicket type</h1>
           <br /><br />
           <button type="buttonwk" onclick="wicket(-1)" class="buttonwk">
@@ -310,6 +346,16 @@
           </button>
           <button type="buttonwk" onclick="wicket(-1)" class="buttonwk">
             Hitout
+          </button>
+          <br />
+          <br />
+          <button
+            type="buttonwk"
+            style="background-color: gray"
+            onclick="closePopupwk()"
+            class="buttonwk"
+          >
+            cancel
           </button>
         </div>
         <div id="overlaywk" class="overlaywk"></div>

@@ -1,5 +1,5 @@
 
 TO finish:
 
--> Undo Button logic for Byes and legbyes
 -> box shadow styling for wicket popup
+-> 2nd innings score logic (target,chasing stats)

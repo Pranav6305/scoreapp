@@ -55,54 +55,94 @@ functions
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
-script3.js [web3.html]
+script3.js [web3.html] and script3_2nd.js [xweb3_2nd.html]
 
-- It helps to keep track of the cricket match score, overs, wickets, and other match details.
+It helps to keep track of the cricket match score, overs, wickets, and other match details with comprehensive tracking of various cricket-specific scenarios.
 
 variables
-----------
-• runs: Total runs scored.
-• balls: Number of balls bowled in the current over.
-• overs: Total number of overs bowled.
-• wickets: Total number of wickets fallen.
-• total: Total runs including extras.
-• st: Runs scored by the striker.
-• flag: Indicates the strike position of the batsman (0 (striker) or 1 (non-striker)).
-• nst: Runs scored by the non-striker.
-• bstwkt: Wickets taken by the current bowler.
-• bnstwkt: Wickets taken by the other bowler.
-• bstrun: Runs given by the current bowler.
-• bnstrun: Runs given by the other bowler.
-• bflag: Indicates the bowling position (0 (even bowler) or 1 (odd bowler)).
-• stb: Balls faced by the striker.
-• nstb: Balls faced by the non-striker.
-• wide: Runs scored in wide.
-•cwide: Count the number of wides.
-• extras: Total extras (wides, no-balls, byes, leg-byes).
-• bat_team: The name of the batting team (from local storage).
-• freeHitFlag: Indicates if the current ball is a free hit.
-• totalovers: Total overs in the match (from local storage).
-• recents: Array storing recent events (runs, wickets).
-• prevStrRuns: Array that store the total runs of player.
-•prevStrBalls: Array tha store total balls played by each player.
-•wideRecords: Array store the total runs in wide.
-•noballRecords: Array store the total runs in noball.
+
+runs: Total runs scored.
+balls: Number of balls bowled in the current over (0-5).
+overs: Total number of overs bowled.
+wickets: Total number of wickets fallen.
+total: Total runs including extras.
+st: Runs scored by the striker.
+flag: Indicates the strike position and strike rotation (-1 for match end, 0 for striker, 1 for non-striker).
+nst: Runs scored by the non-striker.
+bstwkt: Wickets taken by the current bowler (even overs).
+bnstwkt: Wickets taken by the other bowler (odd overs).
+bstrun: Runs given by the current bowler (even overs).
+bnstrun: Runs given by the other bowler (odd overs).
+bflag: Indicates the bowling position (0 for even bowler, 1 for odd bowler, -1 for match end).
+stb: Balls faced by the striker.
+nstb: Balls faced by the non-striker.
+wide: Runs scored in wide balls.
+cwide: Count of wide balls.
+extras: Total extras (wides, no-balls, byes, leg-byes).
+bat_team: The name of the batting team (from local storage).
+bowl_team: The name of the bowling team (from local storage).
+freeHitFlag: Indicates if the current ball is a free hit (0 or 1).
+totalovers: Total overs in the match (from local storage).
+byesflag: Flag to track the type of byes (-1 initial state).
+
+Tracking Arrays:
+
+recents: Array storing recent events (runs, wickets, extras).
+prevStrRuns: Array storing total runs of previous batsmen.
+prevStrBalls: Array storing total balls played by previous batsmen.
+wideRecords: Array storing runs from wide balls.
+noballRecords: Array storing runs from no-balls.
+byesRecords: Array storing runs from byes.
+legbyesRecords: Array storing runs from leg byes.
 
 functions
-----------
-• score(value): Updates the score based on the value (runs) provided.
-• wicket(out): Updates the score when a wicket falls.
-• openPopup(): Opens the popup for wide ball input.
-• openPopupn(): Opens the popup for no-ball input.
-• openPopupb(): Opens the popup for byes input.
-• openPopuplb(): Opens the popup for leg-byes input.
-• openPopupwk(): Opens the popup for wicket input.
-• closePopupwk(): Closes the popup for wicket input.
-• closePopup(): Closes the popup for wide ball and updates the score.
-• noballPopup(): Updates the score for no-ball and closes the popup.
-• byesPopup(): Updates the score for byes and closes the popup.
-• legbyesPopup(): Updates the score for leg-byes and closes the popup.
-• undo(): Reverts the last action performed (score or wicket).
 
+score(value):
+
+Updates the score based on runs scored.
+Manages strike rotation.
+Tracks runs for current and previous overs.
+Handles over completion and strike changes.
+
+
+wicket(out):
+
+Manages wicket falls.
+Updates wickets count.
+Handles batsman and bowler changes.
+Manages free hit scenarios.
+
+
+Popup Functions:
+
+openPopup(): Opens wide ball input popup.
+openPopupn(): Opens no-ball input popup.
+openPopupb(): Opens byes input popup.
+openPopuplb(): Opens leg-byes input popup.
+openPopupwk(): Opens wicket input popup.
+
+
+Popup Close/Update Functions:
+
+closePopupwk(): Closes wicket popup.
+closePopup(): Handles wide ball scoring.
+noballPopup(): Manages no-ball scoring.
+byesPopup(): Handles byes scoring.
+legbyesPopup(): Manages leg-byes scoring.
+
+
+undo():
+Reverts the last action comprehensively.
+Restores previous state for runs, wickets, extras, and strike/bowler positions.
+Handles different scenarios like runs, wickets, wides, no-balls, byes, and leg-byes.
+
+
+values:
+Runs: 0 to 6
+Wicket: -1
+Wide: -2
+Noball: -3
+LegByes: -4
+Byes: -5
 
 -----------------------------------------------------------------------------------------------------------------------------------------

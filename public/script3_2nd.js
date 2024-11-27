@@ -18,7 +18,10 @@ var runs = 0,
   extras = 0;
 var wide = 0,
   cwide = 0,
-  cnb = 0;
+  cnb = 0,
+  clb = 0,
+  cb = 0,
+  byesflag = -1;
 var bowl_team = localStorage.getItem("bowl");
 var freeHitFlag = 0;
 document.getElementById("boteam").textContent = bowl_team;
@@ -27,7 +30,9 @@ var recents = [],
   prevStrRuns = [],
   prevStrBalls = [],
   wideRecords = [],
-  noballRecords = [];
+  noballRecords = [],
+  byesRecords = [],
+  legbyesRecords = [];
 
 function score(value) {
   if (overs == totalovers) {
@@ -383,6 +388,7 @@ function noballPopup() {
 
 function byesPopup() {
   var byes = 0;
+  byesflag = 1;
   byes = parseInt(document.getElementById("b").value);
   if (overs == totalovers) {
     flag = -1;
@@ -419,8 +425,10 @@ function byesPopup() {
     extras += byes;
     balls = (balls + 1) % 6;
   }
+  cb = cb + byes;
   if (flag === 0 || flag === 1) {
-    recents.push(byes);
+    recents.push(-5);
+    byesRecords.push(byes);
     document.getElementById("popupb").style.display = "none";
     document.getElementById("overlayb").style.display = "none";
     document.getElementById("runs").innerHTML = total;
@@ -428,7 +436,7 @@ function byesPopup() {
     document.getElementById("Overs").innerHTML =
       overs + "." + balls + "(" + totalovers + ")";
     document.getElementById("ex").innerHTML = extras;
-    document.getElementById("by").innerHTML = byes;
+    document.getElementById("by").innerHTML = cb;
     document.getElementById("st").innerHTML = st + "(" + stb + ")";
     document.getElementById("nst").innerHTML = nst + "(" + nstb + ")";
     document.getElementById("bst").innerHTML = bstwkt + "-" + bstrun;
@@ -439,6 +447,7 @@ function byesPopup() {
 
 function legbyesPopup() {
   var lbyes = 0;
+  byesflag = 0;
   lbyes = parseInt(document.getElementById("lb").value);
   if (overs == totalovers) {
     flag = -1;
@@ -475,8 +484,10 @@ function legbyesPopup() {
     extras += lbyes;
     balls = (balls + 1) % 6;
   }
+  clb = clb + lbyes;
   if (flag === 0 || flag === 1) {
-    recents.push(lbyes);
+    recents.push(-4);
+    legbyesRecords.push(lbyes);
     document.getElementById("popuplb").style.display = "none";
     document.getElementById("overlaylb").style.display = "none";
     document.getElementById("runs").innerHTML = total;
@@ -484,7 +495,7 @@ function legbyesPopup() {
     document.getElementById("Overs").innerHTML =
       overs + "." + balls + "(" + totalovers + ")";
     document.getElementById("ex").innerHTML = extras;
-    document.getElementById("leg").innerHTML = lbyes;
+    document.getElementById("leg").innerHTML = clb;
     document.getElementById("st").innerHTML = st + "(" + stb + ")";
     document.getElementById("nst").innerHTML = nst + "(" + nstb + ")";
     document.getElementById("bst").innerHTML = bstwkt + "-" + bstrun;
@@ -693,6 +704,92 @@ function undo() {
       document.getElementById("runs").innerHTML = total;
       document.getElementById("ex").innerHTML = extras;
       document.getElementById("noballs").innerHTML = cnb;
+      document.getElementById("st").innerHTML = st + "(" + stb + ")";
+      document.getElementById("nst").innerHTML = nst + "(" + nstb + ")";
+      document.getElementById("bst").innerHTML = bstwkt + "-" + bstrun;
+      document.getElementById("bnst").innerHTML = bnstwkt + "-" + bnstrun;
+      freeHitFlag = 0;
+    }
+  }
+  //leg byes
+  else if (change == -4) {
+    var templegbyes = legbyesRecords.pop();
+    total = total - templegbyes;
+    runs = runs - templegbyes;
+    balls--;
+    if (templegbyes % 2 === 0 && flag === 0) {
+      stb--;
+    } else if (templegbyes % 2 === 0 && flag === 1) {
+      nstb--;
+    } else if (templegbyes % 2 != 0 && flag === 0) {
+      flag = 1;
+      nstb--;
+    } else if (templegbyes % 2 != 0 && flag === 1) {
+      flag = 0;
+      stb--;
+    }
+
+    // extras--;
+    extras -= templegbyes;
+
+    if (total === 0) {
+      total = 0;
+    }
+    var tempcheck = recents.pop();
+    if (tempcheck === -4) {
+      byesflag = 0;
+    }
+    recents.push(tempcheck);
+    clb = clb - templegbyes;
+    if (flag === 0 || flag === 1) {
+      document.getElementById("runs").innerHTML = total;
+      document.getElementById("ex").innerHTML = extras;
+      document.getElementById("leg").innerHTML = clb;
+      document.getElementById("Overs").innerHTML =
+        overs + "." + balls + "(" + totalovers + ")";
+      document.getElementById("st").innerHTML = st + "(" + stb + ")";
+      document.getElementById("nst").innerHTML = nst + "(" + nstb + ")";
+      document.getElementById("bst").innerHTML = bstwkt + "-" + bstrun;
+      document.getElementById("bnst").innerHTML = bnstwkt + "-" + bnstrun;
+      freeHitFlag = 0;
+    }
+  }
+  //byes
+  else if (change == -5) {
+    var tempbyes = byesRecords.pop();
+    total = total - tempbyes;
+    runs = runs - tempbyes;
+    balls--;
+    if (tempbyes % 2 === 0 && flag === 0) {
+      stb--;
+    } else if (tempbyes % 2 === 0 && flag === 1) {
+      nstb--;
+    } else if (tempbyes % 2 != 0 && flag === 0) {
+      flag = 1;
+      nstb--;
+    } else if (tempbyes % 2 != 0 && flag === 1) {
+      flag = 0;
+      stb--;
+    }
+
+    // extras--;
+    extras -= tempbyes;
+
+    if (total === 0) {
+      total = 0;
+    }
+    var tempcheck = recents.pop();
+    if (tempcheck === -5) {
+      byesflag = 1;
+    }
+    recents.push(tempcheck);
+    cb = cb - tempbyes;
+    if (flag === 0 || flag === 1) {
+      document.getElementById("runs").innerHTML = total;
+      document.getElementById("ex").innerHTML = extras;
+      document.getElementById("by").innerHTML = cb;
+      document.getElementById("Overs").innerHTML =
+        overs + "." + balls + "(" + totalovers + ")";
       document.getElementById("st").innerHTML = st + "(" + stb + ")";
       document.getElementById("nst").innerHTML = nst + "(" + nstb + ")";
       document.getElementById("bst").innerHTML = bstwkt + "-" + bstrun;

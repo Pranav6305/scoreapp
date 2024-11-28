@@ -3,3 +3,5 @@ TO finish:
 
 -> box shadow styling for wicket popup
 -> 2nd innings score logic (target,chasing stats)
+-> after free hit, ball increment for batsmen during wicket
+-> wicket logic after free hit, only run out should count

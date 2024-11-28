@@ -700,6 +700,11 @@ function undo() {
     if (total === 0) {
       total = 0;
     }
+    var tempcheck = recents.pop();
+    if (tempcheck === -3) {
+      freeHitFlag = 1;
+    }
+    recents.push(tempcheck);
     if (flag === 0 || flag === 1) {
       document.getElementById("runs").innerHTML = total;
       document.getElementById("ex").innerHTML = extras;
